@@ -87,7 +87,7 @@ class YiiBase
 	 */
 	public static function getVersion()
 	{
-		return '1.1.26-dev';
+		return '1.1.26-dev-multi-coderocket';
 	}
 
 	/**
@@ -140,6 +140,18 @@ class YiiBase
 	{
 		return self::$_app;
 	}
+
+    public static function destroy(): void
+    {
+        self::$autoloaderFilters=[];
+        self::$classMap=[];
+        self::$enableIncludePath=true;
+        self:: $_aliases=['system'=>YII_PATH,'zii'=>YII_ZII_PATH]; // alias => path
+        self:: $_imports=[];					// alias => class name or directory
+        self:: $_includePaths=null;						// list of include paths
+        self:: $_app=null;
+        self:: $_logger=null;
+    }
 
 	/**
 	 * Stores the application instance in the class static member.
