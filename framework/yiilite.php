@@ -31,17 +31,17 @@ defined('YII_PATH') or define('YII_PATH',dirname(__FILE__));
 defined('YII_ZII_PATH') or define('YII_ZII_PATH',YII_PATH.DIRECTORY_SEPARATOR.'zii');
 class YiiBase
 {
-	public static $autoloaderFilters=array();
-	public static $classMap=array();
+	public static $autoloaderFilters=[];
+	public static $classMap=[];
 	public static $enableIncludePath=true;
-	private static $_aliases=array('system'=>YII_PATH,'zii'=>YII_ZII_PATH); // alias => path
-	private static $_imports=array();					// alias => class name or directory
-	private static $_includePaths;						// list of include paths
-	private static $_app;
-	private static $_logger;
+	private static $_aliases=['system'=>YII_PATH,'zii'=>YII_ZII_PATH]; // alias => path
+	private static $_imports=[];					// alias => class name or directory
+	private static $_includePaths=null;						// list of include paths
+	private static $_app=null;
+	private static $_logger=null;
 	public static function getVersion()
 	{
-		return '1.1.26-dev-multi';
+		return '1.1.26-dev-multi-coderocket';
 	}
 	public static function createWebApplication($config=null)
 	{
@@ -59,6 +59,17 @@ class YiiBase
 	{
 		return self::$_app;
 	}
+    public static function destroy(): void
+    {
+        self::$autoloaderFilters=[];
+        self::$classMap=[];
+        self::$enableIncludePath=true;
+        self:: $_aliases=['system'=>YII_PATH,'zii'=>YII_ZII_PATH]; // alias => path
+        self:: $_imports=[];					// alias => class name or directory
+        self:: $_includePaths=null;						// list of include paths
+        self:: $_app=null;
+        self:: $_logger=null;
+    }
 	public static function setApplication($app)
 	{
 		if(self::$_app===null || $app===null)
